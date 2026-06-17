@@ -26,7 +26,7 @@ class Usuario:
         self.correo = correo
         self.telefono = telefono
 
-#ejemplo de metodo para saludar al usuario
+    #ejemplo de metodo para saludar al usuario
     def saludar(self):
         print(f"Mi nombre es {self.nombre} {self.apellido} ")
 
