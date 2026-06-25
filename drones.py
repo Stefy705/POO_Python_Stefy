@@ -9,47 +9,52 @@ class Drones:
         self.marca = marca
         self.modelo = modelo
         self.peso = peso
-        self.precio = precio
+        self.__precio = precio  # ENCAPSULAMIENTO - atributo privado con doble guion bajo __
 
-#----------METODOS DEL CRUD------------
-#Crear / registrar un dispositivo, creamos la funcion
+    #----------METODOS DEL CRUD------------
+    #Crear / registrar un dispositivo, creamos la funcion
+    def registrar_dron(self):
+        lista_drones.append(self)
+        print(f"Se guardo el dron {self.modelo} exitosamente")
 
-def registrar_dron(self):
-    lista_drones.append(self)
-    print(f"Se guardo el usuario {self.modelo} exitosamente")
+    #READ / VER los drones
+    def consultar_drones(self):
+        print(f"El Dispositivo Electrico con el ID: {self.id_dron} Modelo: {self.modelo} Peso: {self.peso} Precio {self.__precio}")
 
-#READ / VER los drones
-def consultar_drones(self):
-    print(f"El Dispositivo Electrico con el ID: {self.id_dron} Modelo: {self.modelo} Peso: {self.peso} Precio {self.precio}")
+    #UPDATE /  Actualizar datos dron
+    def actualizar_dispo(self, nueva_marca, nuevo_modelo, nuevo_peso, nuevo_precio):
+        self.marca = nueva_marca
+        self.modelo = nuevo_modelo
+        self.peso = nuevo_peso
+        self.__precio = nuevo_precio  # usamos el setter para actualizar el precio encapsulado
+        print(f"El Dron {self.id_dron} se actualizo correctamente a el Modelo:{self.modelo} Marca:{self.marca} Peso:{self.peso} Precio:{self.__precio}")
 
-#UPDATE /  Actualizar datos dron
+    # DELETE / Eliminar un dispositivo del inventario
+    def eliminar_dron(self):
+        if self in lista_drones:
+            lista_drones.remove(self)
+            print(f"El Dron {self.modelo} se elimino correctamente✅")
+        else:
+            print(f"El Dron {self.modelo} no se encuentra en el sistema ❌")
 
-def actualizar_usuario(self, nueva_marca, nuevo_modelo, nuevo_peso, nuevo_precio):
-    self.marca = nueva_marca
-    self.modelo = nuevo_modelo
-    self.peso = nuevo_peso
-    self.precio = nuevo_precio
-    print(f"El Dron {self.id_dron} se actualizo correctamente a el Modelo:{self.modelo} Marca:{self.marca} Peso:{self.peso} Precio:{self.precio}")
+    # METODO que dejaremos preparado para aplicar POLIMORFISMO mas adelante 
+    def vender_producto(self):
+        # Cada clase hija declarara como implementar vender producto 
+        print(f"El dron {self.modelo} ha sido vendido, gracias por la compra")
 
-# DELETE / Eliminar un dispositivo del inventario
+    #----------ENCAPSULAMIENTO GET Y SET------------
+    # GET VER O CONSULTAR UN ATRIBUTO PRIVADO
+    def get_precio(self):
+        return self.__precio
 
-def eliminar_dron(self):
-    if self in lista_drones:
-        lista_drones.remove(self)
-        print(f"El Dron {self.modelo} se elimino correctamente✅")
-    else:
-        print(f"El Dron {self.modelo} no se encuentra en el sistema ❌")
+    # SET MODIFICAR UN ATRIBUTO PRIVADO
+    def set_precio(self, nuevo_precio):
+        if nuevo_precio > 0:  #indicacion para aceptar un valor especifico de precio
+            self.__precio = nuevo_precio
+            print(f"Precio actualizado correctamente a: {self.__precio}")
+        else:
+            print(f"El precio no puede ser 0 o negativo ❌")
 
-# METODO que dejaremos preparado ´para aplicar POLIMORFIRMO mas adelante 
-def vender_producto(self):
-    # Cada clase hija declarara como implementar vender prodcuto 
-    print(f"El dron {self.modelo} ha sido vendido, gracias por la compra")
-
-# CREAR LA INSTANCIA DE LA CLASE DRONES
-dron_1 = Drones ( 1, "DJI", "Mavic 4 Pro", "1063gr", 8700.000)
-dron_2 = Drones ( 2, "DJI", "Mini 5 Pro", "250gr", 3300.000 )
-dron_3 = Drones (3, "DJI", "Air 3S", "724gr", 4550.000)
-dron_4 = Drones (4, "DJI", "Avata 2", "377gr", 4100.000)
 
     #HERENCIA padre a hijos
 
@@ -68,32 +73,24 @@ class Dron_Creativo(Drones):
         self.modoAvanzado = modoAvanzado
         self.grabar4k = grabar4k
 
+    #POLIMORFISMO - sobreescribimos vender_producto del padre con el comportamiento del hijo creativo
+    def vender_producto(self):
+        print(f"✅ Venta CREATIVO completada: El dron {self.modelo} fue vendido como dron creativo/recreativo")
+        print(f"   Incluye: Luces LED {self.colorLed} | {self.modoVuelo} | Nivel: {self.nivelHabilidad}")
 
-dronMavic= (1, "DJI", "Mavic 4 Pro", "1063gr", 8700.000, "verde", "Modo Sport", "Escala Beaufort 7 (Viento Fuerte)", "Avanzado", "Uso deportivo" )
-dronMini= (2, "DJI", "Mini 5 Pro", "250gr", 3300.000, "azul", "Modo Cine", "Escala Beaufort 5 (Brisa Moderada)", "Principiante", "Uso creativo")
-dronAir = (3, "DJI", "Air 3S", "724gr", 4550.000, "morado", "Modo Posicion", "Escala Beaufort 6 (Brisa fuerte)", "Intermedio", "Uso creativo")
-dronAva = (4, "DJI", "Avata 2", "377gr", 4100.000, "rojo", "Modo Acro", "Escala Beaufort 5 (Brisa moderada)", "Intermedio", "Uso deportivo")
 
-#POLIMORFISMO 
+# CREAR LA INSTANCIA DE LA CLASE DRON_CREATIVO
 
-#ENCAPSULMIENTO GET PARA OBTENER SET PARA MODIFICAR
-# GET VER O CONSULTAR  UN ATRIBUTO
-# def get_resultados(self):
-  #   return self.__resultados
-
-# SET MODIFICAR O CONSULTAR 
-
-# def set_resultados(self, notas):
-#   self.__resultados.append(notas)
-#   print(f"resultado guardado para el aprendiz {self.nombre} total notas: {len(self.resultados)}")
-
-# print(f"imprimir privado {aprendiz_1.get_resultado}")
+dronMavic = Dron_Creativo(1, "DJI", "Mavic 4 Pro", "1063gr", 8700.000, "verde", "Modo Sport", "Escala Beaufort 7 (Viento Fuerte)", "Avanzado", "Uso deportivo")
+dronMini  = Dron_Creativo(2, "DJI", "Mini 5 Pro", "250gr", 3300.000, "azul", "Modo Cine", "Escala Beaufort 5 (Brisa Moderada)", "Principiante", "Uso creativo")
+dronAir   = Dron_Creativo(3, "DJI", "Air 3S", "724gr", 4550.000, "morado", "Modo Posicion", "Escala Beaufort 6 (Brisa fuerte)", "Intermedio", "Uso creativo")
+dronAva   = Dron_Creativo(4, "DJI", "Avata 2", "377gr", 4100.000, "rojo", "Modo Acro", "Escala Beaufort 5 (Brisa moderada)", "Intermedio", "Uso deportivo")
 
 
 # CLASE DRON PROFESIONAL 
 #--------------------
 class Dron_Profesional(Drones):
-    def __init__ (self, id_dron:int, marca:str, modelo:str, peso:str, precio:float, rangoSensor:int, almacenamientoInterno:str, resolucionCamara:int, vueloNocturno:str, mapearZona:str):
+    def __init__ (self, id_dron:int, marca:str, modelo:str, peso:str, precio:float, rangoSensor:str, almacenamientoInterno:str, resolucionCamara:str, vueloNocturno:str, mapearZona:str):
 
         super().__init__(id_dron, marca, modelo, peso, precio)
 
@@ -103,27 +100,57 @@ class Dron_Profesional(Drones):
         self.vueloNocturno = vueloNocturno
         self.mapearZona = mapearZona
 
-dronRTK = (1,"DJI" "Matrice 350 RTK", "6.47kg", 52000.000, "Zoom 400x", "Ninguno", "45MP", "FPV + Térmica", "Mapeo 2D/3D con DJI Terra")
-dronEvo = (2,"Autel" "EVO Max 4T", "1.64kg", 26000.000, "Zoom 160x", "128GB", "50MP", "Radar de ondas milimétricas", "Mapeo 3D nativo")
-dronIns = (3,"DJI" "Inspire 3", "3.99kg", 75000.000, "Lentes DL Full-Frame", "1TB PROSSD", "8.1K", "Cámara FPV Starlight", "Trayectorias Waypoints Pro")
-dronEnter = (4,"DJI" "Mavic 3 Enterprise", "915g", 18500.000, "Zoom 56x", "64GB", "20MP", "Infrarrojos omnidireccionales", "Obturador mecánico RTK")
+    #POLIMORFISMO - sobreescribimos vender_producto del padre con el comportamiento del hijo profesional
+    def vender_producto(self):
+        print(f"✅ Venta PROFESIONAL completada: El dron {self.modelo} fue vendido como dron profesional/industrial")
+        print(f"   Incluye: Sensor {self.rangoSensor} | Camara {self.resolucionCamara} | {self.mapearZona}")
 
 
+# CREAR LA INSTANCIA DE LA CLASE DRON_PROFESIONAL
+
+dronRTK   = Dron_Profesional(1, "DJI", "Matrice 350 RTK", "6.47kg", 52000.000, "Zoom 400x", "Ninguno", "45MP", "FPV + Termica", "Mapeo 2D/3D con DJI Terra")
+dronEvo   = Dron_Profesional(2, "Autel", "EVO Max 4T", "1.64kg", 26000.000, "Zoom 160x", "128GB", "50MP", "Radar de ondas milimetricas", "Mapeo 3D nativo")
+dronIns   = Dron_Profesional(3, "DJI", "Inspire 3", "3.99kg", 75000.000, "Lentes DL Full-Frame", "1TB PROSSD", "8.1K", "Camara FPV Starlight", "Trayectorias Waypoints Pro")
+dronEnter = Dron_Profesional(4, "DJI", "Mavic 3 Enterprise", "915gr", 18500.000, "Zoom 56x", "64GB", "20MP", "Infrarrojos omnidireccionales", "Obturador mecanico RTK")
 
 
+#===========================================================
+#................PRUEBAS DEL SISTEMA.......................
+#===========================================================
 
-#POLIMORFISMO 
+print("\n========== PRUEBA 1: REGISTRAR DRONES ==========")
+dronMavic.registrar_dron()
+dronMini.registrar_dron()
+dronAir.registrar_dron()
+dronAva.registrar_dron()
+dronRTK.registrar_dron()
+dronEvo.registrar_dron()
+dronIns.registrar_dron()
+dronEnter.registrar_dron()
 
-#ENCAPSULMIENTO GET PARA OBTENER SET PARA MODIFICAR
-# GET VER O CONSULTAR  UN ATRIBUTO
-# def get_resultados(self):
-  #   return self.__resultados
+print("\n========== PRUEBA 2: CONSULTAR DRONES ==========")
+dronMavic.consultar_drones()
+dronRTK.consultar_drones()
 
-# SET MODIFICAR O CONSULTAR 
+print("\n========== PRUEBA 3: ACTUALIZAR UN DRON ==========")
+dronMini.actualizar_dispo("DJI", "Mini 6 Pro", "260gr", 3800.000)
 
-# def set_resultados(self, notas):
-#   self.__resultados.append(notas)
-#   print(f"resultado guardado para el aprendiz {self.nombre} total notas: {len(self.resultados)}")
+print("\n========== PRUEBA 4: ENCAPSULAMIENTO - GET Y SET ==========")
+print(f"Precio actual del Mavic 4 Pro (GET): {dronMavic.get_precio()}")
+dronMavic.set_precio(9200.000)
 
-# print(f"imprimir privado {aprendiz_1.get_resultado}")
-# # SIMBOLOS DE PRIVADO __ doble guion bajo, 
+print("\n========== PRUEBA 5: POLIMORFISMO - VENDER PRODUCTO ==========")
+print("    Dron Creativo     ")
+dronAva.vender_producto()
+print()
+print("    Dron Profesional   ")
+dronIns.vender_producto()
+
+print("\n========== PRUEBA 6: ELIMINAR UN DRON ==========")
+dronAir.eliminar_dron()
+dronAir.eliminar_dron()  # segunda vez para probar el mensaje de error
+
+print("\n========== ESTADO FINAL DEL INVENTARIO ==========")
+print(f"Total de drones en inventario: {len(lista_drones)}")
+for dron in lista_drones:
+    dron.consultar_drones()
